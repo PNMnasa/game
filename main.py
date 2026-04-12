@@ -36,7 +36,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 # carrot_item: Item = Item("carrot", "using to eat and plan carrots. [continue]", "carrot.png")
-carrot_item: Item = Item.from_json('carrot_item.json')
+carrot_item: Item = Item.from_json('assets/carrot_item.json')
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -57,12 +57,12 @@ running = True
 map_size = (200, 300)
 tile_map = [0]*map_size[0]*map_size[1]
 
-chestnut_image = pygame.image.load(os.path.join('.', 'chestnut.png')).convert_alpha()
-assets = pygame.image.load(os.path.join('.', 'keyboard-&-mouse_sheet_double.png')).convert_alpha()
+chestnut_image = pygame.image.load(os.path.join('assets', 'chestnut.png')).convert_alpha()
+assets = pygame.image.load(os.path.join('assets', 'keyboard-&-mouse_sheet_double.png')).convert_alpha()
 
 #tile imgs
-error_tile = pygame.image.load(os.path.join('.', 'error-tile.png')).convert_alpha()
-dirt_tile = pygame.image.load(os.path.join('.', 'dirt.png')).convert_alpha()
+error_tile = pygame.image.load(os.path.join('assets', 'error-tile.png')).convert_alpha()
+dirt_tile = pygame.image.load(os.path.join('assets', 'dirt.png')).convert_alpha()
 tile_size = 32
 
 items_player: List[Item] = [None]*10
