@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 from typing import List
@@ -11,11 +12,22 @@ class Item():
         self.name = name
         self.info = info
         self.asset = pygame.image.load(path).convert_alpha()
-    @classmethod
-    def from_json(path: str):
-        
-        pass
 
+    @classmethod
+    def from_json(cls, path: str):
+        try:
+            with open(path, "r") as file:
+                data = json.load(file)
+            return cls(data["name"], data["info"], data["path"])
+        except FileNotFoundError:
+            print(f"Error: The file at {sys.path} was not found.")
+            raise
+        except json.JSONDecodeError as e:
+            print(f"Error: Failed to decode JSON. {e}")
+            raise
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            raise
 
 # Khởi tạo
 pygame.init()
@@ -23,7 +35,8 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
-carrot_item: Item = Item("carrot", "using to eat and plan carrots. [continue]", "carrot.png") 
+# carrot_item: Item = Item("carrot", "using to eat and plan carrots. [continue]", "carrot.png")
+carrot_item: Item = Item.from_json('carrot_item.json')
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
