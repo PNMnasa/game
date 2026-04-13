@@ -69,6 +69,26 @@ items_player: List[Item] = [None]*10
 
 items_player[0] = carrot_item
 
+def load_map(filename: str):
+    global tile_map
+    try:
+        with open(filename, 'r') as file:
+            tile_map = json.load(file)
+    except FileNotFoundError:
+        print(f"Error: The file {filename} was not found.")
+    except json.JSONDecodeError as e:
+        print(f"Error: Failed to decode JSON from {filename}. {e}")
+
+load_map('map.json')
+print(type(tile_map))
+
+def save_map(filename: str):
+    try:
+        with open(filename, 'w') as file:
+            json.dump(tile_map, file)
+    except Exception as e:
+        print(f"Error saving map: {e}")
+
 while running:
     delta = clock.tick() / 1000.0
     speed = 300
@@ -76,6 +96,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            save_map('map.json')
     
     keys = pygame.key.get_pressed()
 
